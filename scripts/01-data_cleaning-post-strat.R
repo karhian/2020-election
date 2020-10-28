@@ -10,7 +10,6 @@
 
 
 #### Workspace setup ####
-library(math)
 library(haven)
 library(tidyverse)
 # Read in the raw data. 
