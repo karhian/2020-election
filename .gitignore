@@ -39,3 +39,5 @@ vignettes/*.pdf
 .Renviron
 
 usa_00001.dta.gz
+data/*
+outputs/cleaned data/*

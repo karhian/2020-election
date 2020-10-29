@@ -1,11 +1,13 @@
 #### Preamble ####
-# Purpose: Prepare and clean the survey data downloaded from [...UPDATE ME!!!!!]
-# Author: Rohan Alexander and Sam Caetano [CHANGE THIS TO YOUR NAME!!!!]
-# Data: 22 October 2020
-# Contact: rohan.alexander@utoronto.ca [PROBABLY CHANGE THIS ALSO!!!!]
+# Purpose: Prepare and clean the survey data downloaded from https://usa.ipums.org/usa/index.shtml
+# Author: Fadlan Arif
+# Date: 28 October 2020
+# Contact: fadlan.fakhrunniam@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: 
-# - Need to have downloaded the ACS data and saved it to inputs/data
+# - Need to have downloaded the ACS data and saved it to "data" folder
+# or change line 18 if saved in different location
+# - Create a folder called "cleaned data" in outputs folder
 # - Don't forget to gitignore it!
 
 
@@ -36,17 +38,17 @@ reduced_data <-
 #### What's next? ####
 #grouping the ages
 reduced_data <- reduced_data %>% 
-  mutate(age_range = if_else(1 <= as.numeric(age) & as.numeric(age) <= 17,'0-17 years old', 
+  mutate(age_range = if_else(as.numeric(age) <= 17,'Below 18', 
                     if_else(18 <= as.numeric(age) & as.numeric(age) <= 30, '18-30 years old', 
                             if_else(31 <= as.numeric(age) & as.numeric(age) <= 45, '31-45 years old',
                                     if_else(46 <= as.numeric(age) & as.numeric(age) <= 64, '46-64 years old',
-                                            if_else(65<= as.numeric(age), '65+ years old', 'less than 1 year old'))))))
+                                            if_else(65<= as.numeric(age), '65+ years old', 'NA'))))))
                                           
   
 rm(raw_data)
          
-
-
+#write the reduced data into a csv file
+write.csv(reduced_data,"outputs/cleaned data/poststratification_cleaned.csv")
 
 
 
