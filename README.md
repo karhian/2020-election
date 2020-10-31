@@ -4,13 +4,15 @@ This repo contains code and data for forecasting the US 2020 presidential electi
 
 Data contain data that are unchanged from their original. We use two datasets: 
 
-- [Survey data - 1. Fill in the form in https://www.voterstudygroup.org/publication/nationscape-data-set to obtain full data.
+- [Survey data - 
+                 1. Fill in the form in https://www.voterstudygroup.org/publication/nationscape-data-set to obtain full data.
 
                  2. The full link to the full data will be sent via email provided
                  
                  3. For the purpose of this report we use ns20200625 in phase_2_v20200814 from the downloaded full data]
 
-- [ACS data - 1. Skip to step 4 if already registered for an account
+- [ACS data - 
+              1. Skip to step 4 if already registered for an account
 
               2. Click register in https://usa.ipums.org/usa/index.shtml
               
@@ -38,7 +40,7 @@ Outputs contain data that are modified from the input data, the report and suppo
 
 - cleaned data
 
-  running script 01-data_cleaning-post-strat.R and 01-data_cleaning-survey.R will write to this folder 
+  - running script 01-data_cleaning-post-strat.R and 01-data_cleaning-survey.R will write to this folder 
   
 - paper
 
