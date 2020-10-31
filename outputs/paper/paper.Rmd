@@ -1,11 +1,12 @@
 ---
 title: "TBD"
 subtitle: "TBD"
-author: "TBD"
-thanks: "Code and data are available at: LINK."
+author: "Kar Hian Ong and Fadlan Arif"
+thanks:  "Code and data are available at: https://github.com/karhian/2020-election"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 abstract: |
   | First sentence. Second sentence. Third sentence. Fourth sentence. 
+Keywords: "forecasting, US2020 election, Trump, Biden, multilevel regression with post-stratification" 
 output:
   bookdown::pdf_document2:
 toc: FALSE
@@ -21,10 +22,17 @@ library(palmerpenguins)
 
 # Introduction
 
+With the US federal election 2020 swinging by, there is intense debate on who will be the upcoming US president of the United States. The election uses the electoral college system where each state is given a certain number of votes. Candidates with the 270 votes or more will win the election. Us is govern by 2 major parties, Democrats and Republicans. The candidate representing Democrats is Joe Biden while the cendidate representing Republicans is Donald Trump. Both candidates have held positons prior to the 2020 election making them a strong contender for this election. Donald Trump is the current sitting pressident of the United States while Joe Biden was the vice president of the previous administration. 
+
+This reasearch is about who will win the US election. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies.    
+
+There are several sections to this paper. Section 2 will talk about the survey data and Acs data, section 3 will detail the model that us use to predict the winner of the US election, section 4 we will get to see the results, section 5 will be discussion on the findings and weaknessess.
 
 
 
 # Data
+
+The survey data is provided by Nationscape. 
 
 Our data is of penguins (Figure \@ref(fig:bills)).
 
@@ -88,6 +96,7 @@ Weaknesses and next steps should also be included.
 \newpage
 
 # Appendix {-}
+Code and data are available at: https://github.com/karhian/2020-election
 
 \newpage
 
