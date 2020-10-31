@@ -12,7 +12,7 @@ Data contain data that are unchanged from their original. We use two datasets:
                  
                  3. For the purpose of this report we use ns20200625 in phase_2_v20200814 from the downloaded full data]
 
-- [ACS data  - Steps to obtain Acs data 
+- [ACS data  - Steps to obtain ACS data 
 
               1. Skip to step 4 if already registered for an account
 
