@@ -24,7 +24,7 @@ library(palmerpenguins)
 
 With the US federal election 2020 swinging by, there is intense debate on who will be the upcoming US president of the United States. The election uses the electoral college system where each state is given a certain number of votes. Candidates with the 270 votes or more will win the election. Us is govern by 2 major parties, Democrats and Republicans. The candidate representing Democrats is Joe Biden while the candidate representing Republicans is Donald Trump. Both candidates have held positions prior to the 2020 election making them a strong contender for this election. Donald Trump is the current sitting president of the United States while Joe Biden was the vice president of the previous administration. 
 
-This research is about predicting who will win the US election. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies. 
+This research is about predicting who will win the popular vote for the US election. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies. 
 
 Our approach towards handling our data is through the scope of logistic regression. Logistic regression allows us to look at a binary variable, to see the probability of that event happening ot not. We chose logisitic regression as the majority of the votes land on the democratic or republican candidates thus making that our variable of interest. We mainly focus on those planning to vote for these candidates, as these willl most likely be the deciding vote in the election. After narrowing down the election to two options,  have turned the variable of interest into a binary one, thus allowing us to use logistic regression. The formula we use is:
 
@@ -40,7 +40,7 @@ There are several sections to this paper. Section 2 will talk about the survey d
 
 # Data
 
-The survey data is provided by Nationscape (@citeNationscape).
+The survey data is provided by Nationscape (@citeNationscape).Nationscapre conducts interview to 50,000 americans corvering the campaign and election. All responses take the survey online and must complete an attention check before taking the survey. Nationscape handles non-response by using a set of weights. The weights are devived from the the adult population of the 2017 American Community Survey of the U.S. Census Bureau. 
 
 The stratification dataset is by IPUMS USA (@citeIPUMSUSA).
 
@@ -114,7 +114,7 @@ Weaknesses and next steps should also be included.
 \newpage
 
 # Appendix {-}
-Code and data are available at: https://github.com/karhian/2020-election
+
 
 \newpage
 
