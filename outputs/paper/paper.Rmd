@@ -32,7 +32,7 @@ There are several sections to this paper. Section 2 will talk about the survey d
 
 # Data
 
-The survey data is provided by Nationscape. 
+The survey data is provided by Nationscape (@citeNationscape). 
 
 Our data is of penguins (Figure \@ref(fig:bills)).
 
