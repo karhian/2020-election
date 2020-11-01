@@ -5,16 +5,16 @@
 # Contact: fadlan.fakhrunniam@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: 
-# - Need to have downloaded the survey data and save the folder that you're 
-# interested in to "data" folder or change line 18 if saved in different location
-# - Create a folder called "cleaned data" in outputs folder
+# - Need to have ran 01-data_cleaning-post-strat.r and 01-data_cleaning-survey.R
 # - Don't forget to gitignore it!
 
+library(tidyverse)
+survey_data <- read.csv("outputs/cleaned data/survey_cleaned.csv")
 #creating seperate tables for each age group
-age1 <- reduced_data2 %>% filter(age_groups == '18-30 years old')
-age2 <- reduced_data2 %>% filter(age_groups == '31-45 years old')
-age3 <- reduced_data2 %>% filter(age_groups == '46-65 years old')
-age4 <- reduced_data2 %>% filter(age_groups == 'Above 65 years old')
+age1 <- survey_data %>% filter(age_groups == '18-30 years old')
+age2 <- survey_data %>% filter(age_groups == '31-45 years old')
+age3 <- survey_data %>% filter(age_groups == '46-65 years old')
+age4 <- survey_data %>% filter(age_groups == 'Above 65 years old')
 
 #selecting from each age group's table proportionate to population
 set.seed(1)

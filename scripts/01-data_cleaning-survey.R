@@ -75,5 +75,5 @@ reduced_data2 <- reduced_data2 %>%
 reduced_data2 %>% group_by(age_groups) %>% count()
 
 
-write.csv(reduced_data,"outputs/cleaned data/survey_cleaned.csv")
+write.csv(reduced_data2,"outputs/cleaned data/survey_cleaned.csv")
 
