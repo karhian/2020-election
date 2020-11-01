@@ -24,7 +24,15 @@ library(palmerpenguins)
 
 With the US federal election 2020 swinging by, there is intense debate on who will be the upcoming US president of the United States. The election uses the electoral college system where each state is given a certain number of votes. Candidates with the 270 votes or more will win the election. Us is govern by 2 major parties, Democrats and Republicans. The candidate representing Democrats is Joe Biden while the candidate representing Republicans is Donald Trump. Both candidates have held positions prior to the 2020 election making them a strong contender for this election. Donald Trump is the current sitting president of the United States while Joe Biden was the vice president of the previous administration. 
 
-This research is about who will win the US election. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies.    
+This research is about predicting who will win the US election. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies. 
+
+Our approach towards handling our data is through the scope of logistic regression. Logistic regression allows us to look at a binary variable, to see the probability of that event happening ot not. We chose logisitic regression as the majority of the votes land on the democratic or republican candidates thus making that our variable of interest. We mainly focus on those planning to vote for these candidates, as these willl most likely be the deciding vote in the election. After narrowing down the election to two options,  have turned the variable of interest into a binary one, thus allowing us to use logistic regression. The formula we use is:
+
+\begin{align}log(\frac{p}{1-p})= B_0 + B_1x_1 + ... +B_kx_k\end{align}
+
+Where *p* is the probability that the event of interest occuring (voting for Joe Biden), $B_0$ is the y-intercept and $B_i, 1\leq i\leq k,$ coefficient represents change in log odds for one unit increase in $x_i$.
+
+Within this paper we look at the probability of and individual voting for Joe Biden, stratified by their age group. We were able to stratify by cross examining the survey data about election opinions with the US census for 2018. With this information, we were able to more accurately represent the survey data to help it be proportionate to the population of America.
 
 There are several sections to this paper. Section 2 will talk about the survey data and ACS data, section 3 will detail the model that us use to predict the winner of the US election, section 4 we will get to see the results, section 5 will be discussion on the findings and weaknesses.
 
@@ -50,7 +58,6 @@ ggplot(penguins, aes(x = island, fill = species)) +
   coord_flip()
 ```
 
-Talk more about it.
 
 Also bills and their average (Figure \@ref(fig:billssssss)). (Notice how you can change the height and width so they don't take the whole page?)
 
@@ -67,18 +74,25 @@ ggplot(penguins, aes(x = island, fill = species)) +
 ```
 
 Talk way more about it. 
-
-
-
-# Model
-
 \begin{equation}
 Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}  (\#eq:bayes)
 \end{equation}
 
 Equation \@ref(eq:bayes) seems useful, eh?
 
-Here's a dumb example of how to use some references: In paper we run our analysis in `R` [@citeR]. We also use the `tidyverse` which was written by @thereferencecanbewhatever If we were interested in baseball data then @citeLahman could be useful. 
+
+# Model
+
+After molding the data to our needs, we compute the generalised linear model with vote2020_bin as the dependent variable and age and education level being out independent variable.
+
+We then called onto the summary(first_logit) function to retrieve all the needed coefficients and assigned simpler variable names to each value to form our regression formula:
+
+* b0 <- first_logit$coef[1] #intercept
+* age  <- first_logit$coef[2]
+* doctorate <- first_logit$coef[3]
+* gradeschool <- first_logit$coef[4]
+* masters
+
 
 
 # Results

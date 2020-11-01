@@ -16,6 +16,7 @@ age2 <- survey_data %>% filter(age_groups == '31-45 years old')
 age3 <- survey_data %>% filter(age_groups == '46-65 years old')
 age4 <- survey_data %>% filter(age_groups == 'Above 65 years old')
 
+
 #selecting from each age group's table proportionate to population
 set.seed(1)
 stratified_age1 <- 
@@ -41,6 +42,7 @@ first_logit <- glm(vote2020_bin ~ age + educ_level, data = full_stratified_table
                    na.action="na.exclude", family = "binomial")
 
 summary(first_logit)
+
 b0 <- first_logit$coef[1] #intercept
 age  <- first_logit$coef[2]
 doctorate <- first_logit$coef[3]
