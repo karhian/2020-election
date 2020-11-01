@@ -39,7 +39,7 @@ reduced_data1 <-
 #### What's next? ####
 #grouping the ages
 reduced_data1 <- reduced_data1 %>% 
-  mutate(age_range = if_else(as.numeric(age) <= 17,'Below 18', 
+  mutate(age_groups = if_else(as.numeric(age) <= 17,'Below 18', 
                     if_else(18 <= as.numeric(age) & as.numeric(age) <= 30, '18-30 years old', 
                             if_else(31 <= as.numeric(age) & as.numeric(age) <= 45, '31-45 years old',
                                     if_else(46 <= as.numeric(age) & as.numeric(age) <= 65, '46-65 years old',
@@ -71,7 +71,7 @@ reduced_data1 <- reduced_data1 %>%
                                 
   ))
 
-reduced_data1 %>%filter(age_range != 'Below 18') %>% group_by(age_range) %>% count()
+reduced_data1 <- reduced_data1 %>% filter(age_groups != 'Below 18')
          
 #write the reduced data into a csv file
 write.csv(reduced_data1,"outputs/cleaned data/poststratification_cleaned.csv")
