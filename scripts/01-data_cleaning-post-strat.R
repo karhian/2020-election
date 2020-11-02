@@ -46,7 +46,7 @@ reduced_data1 <- reduced_data1 %>%
                                             if_else(65< as.numeric(age), 'Above 65 years old', 'NA'))))))
                                           
 reduced_data1 <- reduced_data1 %>%
-  mutate(educ_level = case_when(educd == 'no schooling completed'  ~ "No schooling",
+  mutate(educ_level = case_when(educd == 'no schooling completed'  ~ "Grade School", #for the purpose of election prediction, we categorize no schooling completed under grade school    
                                 educd == 'nursery school to grade 4'| educd == 'nursery school, preschool' ~ 'Grade School',
                                 educd == 'kindergarten' | educd == 'grade 1, 2, 3, or 4' ~ 'Grade School',
                                 educd == 'grade 1' | educd == 'grade 2' ~ 'Grade School',
