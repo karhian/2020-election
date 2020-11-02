@@ -1,15 +1,16 @@
 ---
-title: "Predicting Donald Trump's win using Post-Stratification by Age Groups and Education Level"
+title: "Predicting Donald Trump's win"
+subtitle: "using Post-Stratification by Age Groups and Education Level"
 author: "Kar Hian Ong and Fadlan Arif"
 thanks:  "Code and data are available at: https://github.com/karhian/2020-election"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 bibliography: "references.bib"
 abstract: |
-  | With the 2020 presedential election coming to an end soon, this paper looks into predicting who will win the the presidency this November.First sentence. By gathering data from the 2018 US census and survey data from nation scape, we were able to stratify our findings by age groups. After stratifying, we were able to more accurately model the population of the United States, letting us predict who will win. We find in this paper that (insert winner's name) is most likely to win the 2020 US election.
-Keywords: "forecasting, US2020 election, Trump, Biden, multilevel regression with post-stratification" 
+  | With the 2020 presidential election coming to an end soon, this paper looks into predicting who will win the presidency this November. By gathering data from the 2018 US census and survey data from nation scape, we were able to model and post-stratify our findings by age groups and education. We expect Donald Trump to win 59 percent of the national popular vote with 3 percent margin of error. This has implication on how we look at our future. 
+Keywords: "forecasting, US2020 election, Trump, Biden, multilevel regression with post-stratification"
 output:
   bookdown::pdf_document2:
-    fig_caption: yes        
+    fig_caption: yes
     includes:  
       in_header: my_header.tex
 toc: FALSE
@@ -19,106 +20,172 @@ toc: FALSE
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-library(palmerpenguins)
+library(kableExtra)
 ```
+
+We use @citeR, @citetidyverse, @citelabelled, @citerstudio, @citermarkdown, @citekableExtra
 
 # Introduction
 
-We use @citeR, @citetidyverse, @citelabelled, @citerstudio, @citermarkdown
+With the US federal election 2020 swinging by, there is intense debate on who will be the upcoming US president of the United States. The election uses the electoral college system where each state is given a certain number of votes. Candidates with the 270 votes or more will win the election. Us is govern by 2 major parties, Democrats and Republicans. The candidate representing Democrats is Joe Biden while the candidate representing Republicans is Donald Trump. Both candidates have held positions prior to the 2020 election making them a strong contender for this election. Donald Trump is the current sitting president of the United States while Joe Biden was the vice president of the previous administration. Many polls have indicated that Joe Biden will win the popular vote as well as the overall election. Will the 2020 polls make the same mistake as they did by predicting that Hillary Clinton will win the election in 2016? 
 
-With the US federal election 2020 swinging by, there is intense debate on who will be the upcoming US president of the United States. The election uses the electoral college system where each state is given a certain number of votes. Candidates with the 270 votes or more will win the election. Us is govern by 2 major parties, Democrats and Republicans. The candidate representing Democrats is Joe Biden while the candidate representing Republicans is Donald Trump. Both candidates have held positions prior to the 2020 election making them a strong contender for this election. Donald Trump is the current sitting president of the United States while Joe Biden was the vice president of the previous administration. 
+This research is to see if we can predict who will win the popular vote for the US election using age groups and education as predictors. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies. This information could also be used for future references for looking into predicting later presidencies base on its accuracy.
 
-This research is about predicting who will win the popular vote for the US election. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies. This information could also be used for future references for looking into predicting later presidencies base on its accuracy.
+Within this paper we look at the probability of and individual voting for Joe Biden, stratified by their age group and education. We were able to stratify by cross examining the survey data about election opinions with the US census for 2018. With this information, we were able to more accurately represent the survey data to help it be proportionate to the population of America. 
 
-Within this paper we look at the probability of and individual voting for Joe Biden, stratified by their age group. We were able to stratify by cross examining the survey data about election opinions with the US census for 2018. With this information, we were able to more accurately represent the survey data to help it be proportionate to the population of America. 
+There are several sections to this paper. Section 2 will talk about retrieval and cleaning of the survey data and American Community Survey (ACS) data, section 3 will detail the model that us use to predict the winner of the US election, section 4 we will get to see the results, section 5 will be discussion on the findings and weaknesses.
 
-Our approach towards handling our stratified data was through the scope of logistic regression. Logistic regression allows us to look at a binary variable, to see the probability of that event happening ot not. We chose logisitic regression as the majority of the votes land on the democratic or republican candidates thus making that our variable of interest. We mainly focus on those planning to vote for these candidates, as these willl most likely be the deciding vote in the election. After narrowing down the election to two options,  have turned the variable of interest into a binary one, thus allowing us to use logistic regression. The formula we use is:
+Through our research we were able to predict that Donald Trump will win the popular vote for the presidential election 2020. Read on to find out how we came to that conclusion.
 
-\begin{align}log(\frac{p}{1-p})= B_0 + B_1x_1 + ... +B_kx_k\end{align}
-
-Where *p* is the probability that the event of interest occuring (voting for Joe Biden), $B_0$ is the y-intercept and $B_i, 1\leq i\leq k,$ coefficient represents change in log odds for one unit increase in $x_i$.
-
-
-There are several sections to this paper. Section 2 will talk about retrieval and cleaning of the survey data and ACS data, section 3 will detail the model that us use to predict the winner of the US election, section 4 we will get to see the results, section 5 will be discussion on the findings and weaknesses.
-
-Through our research we were able to predict that (winner's name) will win the the presidential election of 2020. That is they have the highest probability of winning with the survey information we have used.
 
 # Data
+The survey data is provided by Nationscape (@citeNationscape). Nationscape conducts interview to 50,000 Americans covering the campaign and election. All respondents take the survey online and must complete an attention check before taking the survey. Nationscape handles non-response by using a set of weights. The weights are derived from the adult population of the 2017 American Community Survey of the U.S. Census Bureau. This survey generally asks political questions, policies, and views.
 
-The survey data is provided by Nationscape (@citeNationscape).Nationscapre conducts interview to 50,000 americans corvering the campaign and election. All responses take the survey online and must complete an attention check before taking the survey. Nationscape handles non-response by using a set of weights. The weights are devived from the the adult population of the 2017 American Community Survey of the U.S. Census Bureau. 
+The post-stratification dataset that we will use is the ACS provided by IPUMS USA (@citeIPUMSUSA). Within the IPUMS USA site we chose the 2018 US census. From there we were able to choose some variables of interest. We chose based on what we thought were major indicators of one's political stance. Some of the important variables we picked were age, education level, school type and veteran status. We also picked a wider variety than we needed to be able to have flexibility in shaping our models and graphs. This acted as our population data. The ACS data is conducted once a year and is conducted by the United States Census Bureau. The ACS derived its sampling frame from which they draw the samples from Census Bureau’s Master Address File (MAF). The ACS conducts a two-phase sampling technique and a 2-stage sample selection. The first stage of the first phase is by systematically assign new addresses to five existing sub-frames and the second stage is by systematically select sample from first-stage sample (sub-frame). The ASC handles non-responses in the second phase they select sample of unmailable addresses and non-responding addresses and send to Computer Assisted Personal Interviewing (CAPI).  The sub-frames are assigned to specific year and are rotated annually. This is an example of stratified sampling where you divide the population into subgroups and do further sampling by using simple random sample or systemic sampling but for the ACS they did systemic sampling. Systemic sampling is when you start at a certain house and then you sample every kth sample after that.
 
-The stratification dataset is by IPUMS USA (@citeIPUMSUSA). Within the IPUMS USA site we chose the 2018 US census. From there we were able to choose pur variables of interest. We chose based on what we thought were major indicators of one's political stance. Some of the important variables we picked were: age, education level, school type and veteran status. We also picked a wider variety than wee needed to be able to have flexibility in shaping our models and graphs. This acted as our population data.
 
 The cleaning of survey data and stratification data uses `haven` (@citehaven) package to read the data
 
-After collecting both the needed datasets, we cleaned each of them respectively, picking the variables we needed and adding labels. For both datasets, we decided to generalise the ages. This was done by adding anew colemn named 'age_groups' or 'age_range'. With this new column we categorised each person into one of five different age groups:
-
-* Below 18 years old
-* 18-30 years old
-* 31-45 years old
-* 46-65 years old
-* Above 65 years old
+After collecting both the needed datasets, we cleaned each of them respectively, picking the variables we needed and adding labels. For both datasets, we decided to generalise the ages and education levels. We made sure the categories on each data set match perfectly. This was done by adding a new column named 'age_groups' and 'educ_levels' respectively. The education levels represent the highest academic achievment so far. The reason we grouped the ages is due to their similar voting behavior.
 
 
+With the new columns created we categorised the responses into it's category as shown in Table \@ref(tab:cat1) and Table \@ref(tab:cat2)
 
-For the Nationscape dataset, we only took in the into consideration the ones were explicitly said they were voting for either Donald Trump or Joe Biden. We made this decision as to not choose for those who were undecided.
+```{r cat1, echo=FALSE}
+# Display the age categories
+age_groups <- c("Below 18 years old"
+,"18-30 years old","31-45 years old","46-65 years old"
+,"Above 65 years old")
+kbl(age_groups, booktabs = TRUE,caption = 'Age group categories',col.names = 'age groups')%>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
 
-Then we began the post-stratification by age groups. When looking at the population data from IPUMS US we only focused on those 18 and above, to only represent the population that could actually vote. When calculating the percentage we got:
+\newpage
 
-* '18-30 years old' = 19.6%
-* '31-45 years old' = 21.9%
-* '46-65 years old' = 30.7%
-* 'Above 65 years old' = 15.1%
+```{r cat2, echo=FALSE}
+# Display the education categories
+level_of_education <- c("Grade school","College","Master's or above bachelor's degree","Doctorate Degree")
+kbl(level_of_education, booktabs = TRUE,caption = 'Education level categories',col.names = 'level of education')%>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
 
-With these new proportions, we turned to the sample dataset from Nationscape. We chose randomly from each age group proportionate to the percentage of the population data and cut it down the 2000 entries. This was our final dataset that had been stratified by age groups. We then created a new column named 'vote2020_bin'. This was a binary variable that had either 0 or 1. If the person planned on voting Joe Biden, it equalled 1, if they planned on Donald Trump, it eaqualled to 0. With this new column, we found our binary variable of interest that could be used with logistic regression to predict the probability of who is voting for who.
 
-Figure \@ref(fig:age1) shows something 
+For the Nationscape dataset, we only took in the into consideration the ones were explicitly said they were voting for either Donald Trump or Joe Biden. We made this decision as to not choose for those who were undecided. This is so that we can model a binary logistical problem where it's either 0 or 1.If the person planned on voting Joe Biden, it equalled 1, if they planned on Donald Trump, it equalled to 0. WE also remove those that are not eligible to vote as this create noise to the data. 
 
-```{r age1, fig.cap = "Frequency of Age Groups for Population Data", echo = FALSE, fig.width=8, fig.height=4}
-dataforgraph1 <- read.csv("../cleaned data/poststratification_cleaned.csv")
-graph1 <- dataforgraph1 %>% 
-  ggplot()+ geom_bar(aes(x=age_groups, fill = age_groups)) + 
+For the ACS data, we recategorize "no schooling completed" as "grade school" due to similar voting patterns. We also removed responses from those below the age of 18 as the voting age is 18.
+
+In order to get a bigger picture of the variables involved, first we plot the data for ages as shown in Figure \@ref(fig:age1) and Figure \@ref(fig:age2).
+
+```{r age1, fig.cap = "Age Groups for Population Data", echo = FALSE, fig.width=8, fig.height=2}
+ACS_data <- read.csv("../cleaned data/poststratification_cleaned.csv")
+# plotting the data for age in ACS data
+ACS_data %>% 
+  ggplot()+ geom_bar(aes(x=age_groups, fill = age_groups),colour="black") +
   labs(x = "Age Groups", 
-       y = "Number of People") 
-graph1
+       y = "Number of People",fill="Age Groups") 
 ```
 
 
-Figure \@ref(fig:age2)  aslo shows something 
-
-```{r age2, fig.cap = "Frequency of Age Groups for Survery Data", echo = FALSE, fig.width=8, fig.height=4}
-dataforgraph2 <- read.csv("../cleaned data/survey_cleaned.csv")
-graph2 <- dataforgraph2 %>% 
-  ggplot()+ geom_bar(aes(x=age_groups, fill = age_groups)) + 
+```{r age2, fig.cap = "Age Groups for Survery Data", echo = FALSE, fig.width=8, fig.height=2}
+survey_data <- read.csv("../cleaned data/survey_cleaned.csv")
+# plotting the data for age in survey data
+survey_data %>% 
+  ggplot()+ geom_bar(aes(x=age_groups, fill = age_groups),colour="black") + 
   labs(x = "Age Groups", 
-       y = "Number of People") 
-graph2
-```
-```{r table1, fig.cap = "voting intention 2020", echo = FALSE, fig.width=8, fig.height=4}
-#install.packages("scales")
-
-table1 <- table(dataforgraph2$vote_2020)
-table1
+       y = "Number of People",fill="Age Groups") 
 ```
 
+By comparing Figure \@ref(fig:age1) and Figure \@ref(fig:age2), we get to see that age groups for 46-65 years old and those above 65 is under represented while those between the ages 31-45 is over represented. This issue can be solved by using multilevel regression and post-stratification.
+
+On the other hand, when we plot the other variable as shown in \@ref(fig:edu1) and Figure \@ref(fig:edu2),
+
+
+```{r edu1,fig.cap = "Education level for Population Data",echo = FALSE, fig.width=8, fig.height=2}
+# plotting the data for education level in ACS data
+ACS_data %>% 
+  ggplot()+ geom_bar(aes(x=educ_level, fill = educ_level),colour="black") + theme(axis.text.x=element_blank()) +
+  labs(x = "Education Levels", y = "Number of People",fill="Education Levels")
+```
+
+
+
+```{r edu2,fig.cap = "Education level for Survey Data",echo = FALSE, fig.width=8, fig.height=2}
+# plotting the data for education level in ACS data
+survey_data %>% 
+  ggplot()+ geom_bar(aes(x=educ_level, fill = educ_level),colour="black") + theme(axis.text.x=element_blank()) +
+  labs(x = "Education Levels", y = "Number of People",fill="Education Levels")
+```
+
+The plots in Figure \@ref(fig:edu1) and Figure \@ref(fig:edu2) shows a good propotion between the survey data and population data. 
+
+In Table \@ref(tab:table1) we can clearly see that Joe Biden has more votes. But this is just the survey data and does not represent the general US population. This is why we need a model that could generalise to the US population.
+
+```{r table1, echo = FALSE}
+table1 <- table(survey_data$vote_2020)
+kbl(table1, booktabs = TRUE,caption = 'voting intention 2020',col.names = c("Candidates","Frequency"))%>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+
+After all the facts and figures, you might be wondering what multilevel regression with post-stratification is. Multilevel regression is a type of model where the parameters vary by more then one level. In our case we want to model the performance of Joe Biden which allow the grouping of age groups and education level.  Post-stratification is an act of reweighing the survey data to the population data. When we conduct a survey, it is not possible to sample the entire US population. There are several factors to it. One of the factors is cost. It will cost the surveying company millions of dollars just to conduct a survey each time. So, we use an available census data to weight the prediction.  
 
 
 # Model
 
-After molding the data to our needs, we compute the generalised linear model with vote2020_bin as the dependent variable and age and education level being out independent variable.
+Our approach towards handling our stratified data was through the scope of logistic regression. Logistic regression allows us to look at a binary variable, to see the probability of that event happening or not. We chose logistic regression as most of the votes land on the democratic or republican candidates thus making that our variable of interest. We mainly focus on those planning to vote for these candidates, as these will most likely be the deciding vote in the election. After narrowing down the election to two options, have turned the variable of interest into a binary one, thus allowing us to use logistic regression. The formula we use is:
 
-We then called onto the summary(first_logit) function to retrieve all the needed coefficients and assigned simpler variable names to each value to form our regression formula:
+\begin{align}log(\frac{p}{1-p})= B_0 + B_1x_1 + B_1x_2 + B_1x_3 + B_1y_1 + B_1y_2 + B_1y_3\end{align}
 
+Where *p* is the probability that the event of interest occurring (voting for Joe Biden), $B_0$ is the y-intercept and $B_i, 1\leq i\leq k,$ coefficient represents change in log odds for one unit increase in $x_i$.
+
+As the age groups and education are categorical, they all have different weights on each category. The equation for this model is
+
+\begin{equation}
+log(\frac{p}{1-p})= 0.828 - 0.711x_1 - 0.831x_2 - 0.800x_3 - 0.512y_1 - 0.290y_2 - 0.185y_3  \label{eq:2}
+\end{equation}
+\
+
+where the x values represent age groups and y values represent education levels.
+
+The software we use to model is by using r's glm function.
 
 # Results
+
+After applying the model, we visualise the distribution in Figure \@ref(fig:res1) and Figure \@ref(fig:res2)
+
+```{r res1,fig.cap = "Voting Patterns according to education levels",echo = FALSE, fig.width=8, fig.height=2}
+prediction_data <- read.csv("../cleaned data/prediction.csv")
+prediction_data %>% 
+ggplot()+ geom_bar(aes(x=Predicted_vote,fill=educ_level))+labs(x = "Predicted Vote", y = "Number of People",fill="Education Levels")
+
+```
+
+
+```{r res2,fig.cap = "Voting Patterns according to age groups",echo = FALSE, fig.width=8, fig.height=2}
+prediction_data %>% 
+  ggplot()+ geom_bar(aes(x=Predicted_vote,fill=age_groups))+labs(x = "Predicted Vote", y = "Number of People",fill="age groups")
+```
+
+The model predicted that those between the age of 18-30 will vote for Joe Biden.
+
+Table \@ref(tab:table3) shows the propotion vote based on the model.
+```{r table3, echo = FALSE}
+percentage_vote <- read.csv("../Statistics/percentage_vote.csv")
+kbl(percentage_vote[,2:3], booktabs = TRUE,caption = 'voting prediction 2020',col.names = c("Candidates","Propotion"))%>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
 
 # Discussion
 
 ## First discussion point
-
+The model uses an 80-20 split where 80% of the survey data is used to train the model and the remaining 20% is used to test the model. The 20% is use as cross validation to test whether our model fits the data well. Our model yield 56% accuracy for the training data and 58% accuracy on testing data. This might be signs of overfitting in the data. This model is not an ideal model as the accuracy is low. From the accuracy, we learnt that education and age groups is not a good deciding factor to predict the election. The margin or error is calculated by
+\begin{equation}
+ me = 1.96 * \sigma/\sqrt{n} = 1.96 * 1.166/\sqrt{5047} = 0.032 \label{eq:3}
+ \end{equation}
+ 
 ## Second discussion point
-
-## Third discussion point
+Some of the other models that we can consider is by weighting the other polls and create a model among other polls from different polling company. The weights will be based on their reliability.  538 does its election prediction using the different weight for different polls. They do not use multilevel regression with post-stratification as it will smooth noisy data which may not accurately model the polls.
 
 ## Weaknesses and next steps
 
@@ -128,14 +195,9 @@ Another possible weakness could be our key indicator variables which were age gr
 
 Looking at the data in a binary setting also reveals many flaws within our research. Since we only took into consideration those who gave a definite answer on either Donald Trump or Joe Biden. We chose not to look into the unsure answers as to not impose our own opinion into the dataset. But this information could also be helpful in looking for how many votes were still up for grabs. We could have looked at similarities in the undecided votes with those who did vote a certain way to find a correlation that indicates their possible voting direction.
 
-As for next steps, we may look into modelling the electoral colleges instead of the popular vote. This due the electoral college being the actual deciding factor of the election instead of the popular vote. As we could see in the 2016 election (@cite2016election), Hillary Clinton received more votes overall but Donald Trump won because he won more electoral colleges. This would greatly increase the strength and accuracy of our research nad help our future model.
-
-\newpage
-
-# Appendix {-}
+As for next steps, we may look into modelling the electoral colleges instead of the popular vote. This due the electoral college being the actual deciding factor of the election instead of the popular vote. As we could see in the 2016 election (@cite2016election), Hillary Clinton received more votes overall but Donald Trump won because he won more electoral colleges. This would greatly increase the strength and accuracy of our research and help our future model.
 
 
-\newpage
 
 
 # References

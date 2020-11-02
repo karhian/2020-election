@@ -69,13 +69,8 @@ write.csv(results,"outputs/statistics/percentage_vote.csv")
 # Writing the prediction into "outputs/cleaned data" 
 write.csv(postratification_interest,"outputs/cleaned data/prediction.csv")
 
-
-
-
-
-postratification_interest %>% 
-ggplot()+ geom_bar(aes(x=Predicted_vote,fill=educ_level))
-
-postratification_interest %>% 
-  ggplot()+ geom_bar(aes(x=Predicted_vote,fill=age_groups))
-
+# calculating margin of error
+model_sd <- sigma(model)
+model_sd
+ME <- 1.96*model_sd/sqrt(dim(survey_data)[1])
+ME
