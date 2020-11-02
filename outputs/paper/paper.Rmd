@@ -1,16 +1,16 @@
 ---
-title: "TBD"
-subtitle: "TBD"
+title: "Predicting Donald Trump's win using Post-Stratification by Age Groups and Education Level"
 author: "Kar Hian Ong and Fadlan Arif"
 thanks:  "Code and data are available at: https://github.com/karhian/2020-election"
 date: "`r format(Sys.time(), '%d %B %Y')`"
+bibliography: "references.bib"
 abstract: |
   | With the 2020 presedential election coming to an end soon, this paper looks into predicting who will win the the presidency this November.First sentence. By gathering data from the 2018 US census and survey data from nation scape, we were able to stratify our findings by age groups. After stratifying, we were able to more accurately model the population of the United States, letting us predict who will win. We find in this paper that (insert winner's name) is most likely to win the 2020 US election.
 Keywords: "forecasting, US2020 election, Trump, Biden, multilevel regression with post-stratification" 
 output:
   bookdown::pdf_document2:
 toc: FALSE
-bibliography: references.bib
+
 ---
 
 ```{r setup, include=FALSE}
@@ -21,6 +21,8 @@ library(palmerpenguins)
 ```
 
 # Introduction
+
+We use @citeR, @citetidyverse, @citelabelled, @citerstudio, @citermarkdown
 
 With the US federal election 2020 swinging by, there is intense debate on who will be the upcoming US president of the United States. The election uses the electoral college system where each state is given a certain number of votes. Candidates with the 270 votes or more will win the election. Us is govern by 2 major parties, Democrats and Republicans. The candidate representing Democrats is Joe Biden while the candidate representing Republicans is Donald Trump. Both candidates have held positions prior to the 2020 election making them a strong contender for this election. Donald Trump is the current sitting president of the United States while Joe Biden was the vice president of the previous administration. 
 
@@ -55,6 +57,8 @@ After collecting both the needed datasets, we cleaned each of them respectively,
 * 46-65 years old
 * Above 65 years old
 
+
+
 For the Nationscape dataset, we only took in the into consideration the ones were explicitly said they were voting for either Donald Trump or Joe Biden. We made this decision as to not choose for those who were undecided.
 
 Then we began the post-stratification by age groups. When looking at the population data from IPUMS US we only focused on those 18 and above, to only represent the population that could actually vote. When calculating the percentage we got:
@@ -66,7 +70,6 @@ Then we began the post-stratification by age groups. When looking at the populat
 
 With these new proportions, we turned to the sample dataset from Nationscape. We chose randomly from each age group proportionate to the percentage of the population data and cut it down the 2000 entries. This was our final dataset that had been stratified by age groups. We then created a new column named 'vote2020_bin'. This was a binary variable that had either 0 or 1. If the person planned on voting Joe Biden, it equalled 1, if they planned on Donald Trump, it eaqualled to 0. With this new column, we found our binary variable of interest that could be used with logistic regression to predict the probability of who is voting for who.
 
-Our data is of penguins (Figure \@ref(fig:bills)).
 
 ```{r bills, fig.cap="Bills of penguins", echo = FALSE}
 ggplot(penguins, aes(x = island, fill = species)) +
@@ -79,7 +82,6 @@ ggplot(penguins, aes(x = island, fill = species)) +
 ```
 
 
-Also bills and their average (Figure \@ref(fig:billssssss)). (Notice how you can change the height and width so they don't take the whole page?)
 
 ```{r billssssss, fig.cap="More bills of penguins", echo = FALSE, fig.width=8, fig.height=4}
 
@@ -93,12 +95,6 @@ ggplot(penguins, aes(x = island, fill = species)) +
   coord_flip()
 ```
 
-Talk way more about it. 
-\begin{equation}
-Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}  (\#eq:bayes)
-\end{equation}
-
-Equation \@ref(eq:bayes) seems useful, eh?
 
 
 # Model
@@ -107,13 +103,6 @@ After molding the data to our needs, we compute the generalised linear model wit
 
 We then called onto the summary(first_logit) function to retrieve all the needed coefficients and assigned simpler variable names to each value to form our regression formula:
 
-* b0 <- first_logit$coef[1] #intercept
-* age  <- first_logit$coef[2]
-* doctorate <- first_logit$coef[3]
-* gradeschool <- first_logit$coef[4]
-* masters
-
-
 
 # Results
 
@@ -121,15 +110,19 @@ We then called onto the summary(first_logit) function to retrieve all the needed
 
 ## First discussion point
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
 ## Second discussion point
 
 ## Third discussion point
 
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
+Some weaknesses in the paper lie within the accuracy of the population data. It is from 2018, thus not fully representative of the 2020 population. This could lead to miscalculations within the younger age groups because they probably face the most change within the time difference. This problem could be fixed by taking into consideration new surveys done within 2020 and cross referencing the proportions to get a more accurate dataset. 
+
+Another possible weakness could be our key indicator variables which were age groups and education level. While these are strong indicators for someone's political stance, for others it might have nothing to do with how they vote. A possible solution for this is to survey the population about what are deciding life factors are for them when they are voting. What about the characteristics effect their vote more than others. With this information we could create new datasets that choose the key factors in what decides a person's vote.
+
+Looking at the data in a binary setting also reveals many flaws within our research. Since we only took into consideration those who gave a definite answer on either Donald Trump or Joe Biden. We chose not to look into the unsure answers as to not impose our own opinion into the dataset. But this information could also be helpful in looking for how many votes were still up for grabs. We could have looked at similarities in the undecided votes with those who did vote a certain way to find a correlation that indicates their possible voting direction.
+
+As for next steps, we may look into modelling the electoral colleges instead of the popular vote. This due the electoral college being the actual deciding factor of the election instead of the popular vote. As we could see in the 2016 election (@cite2016election), Hillary Clinton received more votes overall but Donald Trump won because he won more electoral colleges. This would greatly increase the strength and accuracy of our research nad help our future model.
 
 \newpage
 
