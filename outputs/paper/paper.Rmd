@@ -3,7 +3,7 @@ title: "Predicting Donald Trump's win"
 subtitle: "using Post-Stratification by Age Groups and Education Level"
 author: "Kar Hian Ong and Fadlan Arif"
 thanks:  "Code and data are available at: https://github.com/karhian/2020-election"
-date: "`r format(Sys.time(), '%d %B %Y')`"
+date: "02 November 2020"
 bibliography: "references.bib"
 abstract: |
   | With the 2020 presidential election coming to an end soon, this paper looks into predicting who will win the presidency this November. By gathering data from the 2018 US census and survey data from nation scape, we were able to model and post-stratify our findings by age groups and education. We expect Donald Trump to win 59 percent of the national popular vote with 3 percent margin of error. This has implication on how we look at our future. 
