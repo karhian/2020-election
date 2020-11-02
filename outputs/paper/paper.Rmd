@@ -31,11 +31,10 @@ With the US federal election 2020 swinging by, there is intense debate on who wi
 
 This research is to see if we can predict who will win the popular vote for the US election using age groups and education as predictors. The election result has massive impact for the global population. The sitting president will set the tone for international and domestic policies. This information could also be used for future references for looking into predicting later presidencies base on its accuracy.
 
-Within this paper we look at the probability of and individual voting for Joe Biden, stratified by their age group and education. We were able to stratify by cross examining the survey data about election opinions with the US census for 2018. With this information, we were able to more accurately represent the survey data to help it be proportionate to the population of America. 
+Within this paper we look at the probability of and individual voting for Joe Biden, stratified by their age group and education. We were able to stratify by cross examining the survey data about election opinions with the US census for 2018. With this information, we were able to more accurately represent the survey data to help it be proportionate to the population of America. Through our research we were able to predict that Donald Trump will win the popular vote for the presidential election 2020. Read on to find out how we came to that conclusion.
 
-There are several sections to this paper. Section 2 will talk about retrieval and cleaning of the survey data and American Community Survey (ACS) data, section 3 will detail the model that us use to predict the winner of the US election, section 4 we will get to see the results, section 5 will be discussion on the findings and weaknesses.
+The remaining section is structured as follows: Section 2 will talk about retrieval and cleaning of the survey data and American Community Survey (ACS) data, section 3 will introduce the model, section 4 we will get to see the results of our modeling, section 5 will be discussion on the findings and weaknesses.
 
-Through our research we were able to predict that Donald Trump will win the popular vote for the presidential election 2020. Read on to find out how we came to that conclusion.
 
 
 # Data
