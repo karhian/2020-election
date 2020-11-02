@@ -47,7 +47,7 @@ Outputs contain data that are modified from the input data, the report and suppo
 - paper
 - statistics
   
-  -this is where the statistics from the model will be located
+  - this is where the statistics from the model will be located
 
 Scripts contain R scripts that take inputs and outputs and produce outputs. These are:
 
