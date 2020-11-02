@@ -134,9 +134,9 @@ After all the facts and figures, you might be wondering what multilevel regressi
 
 Our approach towards handling our stratified data was through the scope of logistic regression. Logistic regression allows us to look at a binary variable, to see the probability of that event happening or not. We chose logistic regression as most of the votes land on the democratic or republican candidates thus making that our variable of interest. We mainly focus on those planning to vote for these candidates, as these will most likely be the deciding vote in the election. After narrowing down the election to two options, have turned the variable of interest into a binary one, thus allowing us to use logistic regression. The formula we use is:
 
-\begin{align}log(\frac{p}{1-p})= B_0 + B_1x_1 + B_1x_2 + B_1x_3 + B_1y_1 + B_1y_2 + B_1y_3\end{align}
+\begin{align}log(\frac{p}{1-p})= B_0 + B_1x_1 + B_2x_2 + B_2x_3 + B_4y_1 + B_5y_2 + B_6y_3\end{align}
 
-Where *p* is the probability that the event of interest occurring (voting for Joe Biden), $B_0$ is the y-intercept and $B_i, 1\leq i\leq k,$ coefficient represents change in log odds for one unit increase in $x_i$.
+Where *p* is the probability that the event of interest occurring (voting for Joe Biden), $B_0$ is the intercept and $B_i, 1\leq i\leq 6,$ coefficient represents change in log odds for one unit increase in $x_j$ or $y_j, 1\leq j\leq 3$.
 
 As the age groups and education are categorical, they all have different weights on each category. The equation for this model is
 
