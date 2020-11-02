@@ -9,13 +9,15 @@ abstract: |
 Keywords: "forecasting, US2020 election, Trump, Biden, multilevel regression with post-stratification" 
 output:
   bookdown::pdf_document2:
+    fig_caption: yes        
+    includes:  
+      in_header: my_header.tex
 toc: FALSE
 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 library(tidyverse)
 library(palmerpenguins)
 ```
@@ -70,29 +72,33 @@ Then we began the post-stratification by age groups. When looking at the populat
 
 With these new proportions, we turned to the sample dataset from Nationscape. We chose randomly from each age group proportionate to the percentage of the population data and cut it down the 2000 entries. This was our final dataset that had been stratified by age groups. We then created a new column named 'vote2020_bin'. This was a binary variable that had either 0 or 1. If the person planned on voting Joe Biden, it equalled 1, if they planned on Donald Trump, it eaqualled to 0. With this new column, we found our binary variable of interest that could be used with logistic regression to predict the probability of who is voting for who.
 
+Figure \@ref(fig:age1) shows something 
 
-```{r bills, fig.cap="Bills of penguins", echo = FALSE}
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = FALSE) +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+```{r age1, fig.cap = "Frequency of Age Groups for Population Data", echo = FALSE, fig.width=8, fig.height=4}
+dataforgraph1 <- read.csv("../cleaned data/poststratification_cleaned.csv")
+graph1 <- dataforgraph1 %>% 
+  ggplot()+ geom_bar(aes(x=age_groups, fill = age_groups)) + 
+  labs(x = "Age Groups", 
+       y = "Number of People") 
+graph1
 ```
 
 
+Figure \@ref(fig:age2)  aslo shows something 
 
-```{r billssssss, fig.cap="More bills of penguins", echo = FALSE, fig.width=8, fig.height=4}
+```{r age2, fig.cap = "Frequency of Age Groups for Survery Data", echo = FALSE, fig.width=8, fig.height=4}
+dataforgraph2 <- read.csv("../cleaned data/survey_cleaned.csv")
+graph2 <- dataforgraph2 %>% 
+  ggplot()+ geom_bar(aes(x=age_groups, fill = age_groups)) + 
+  labs(x = "Age Groups", 
+       y = "Number of People") 
+graph2
+```
+```{r table1, fig.cap = "voting intention 2020", echo = FALSE, fig.width=8, fig.height=4}
+#install.packages("scales")
 
-# This needs to be about the random data tha tI sasmpled?
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = FALSE) +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+table1 <- table(dataforgraph2$vote_2020)
+table1
 ```
 
 

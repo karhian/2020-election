@@ -77,3 +77,7 @@ reduced_data2 %>% group_by(age_groups) %>% count()
 
 write.csv(reduced_data2,"outputs/cleaned data/survey_cleaned.csv")
 
+reduced_data2 %>% 
+  ggplot()+ geom_bar(aes(x=age_groups, fill = age_groups)) + labs(title = "Figure 1 Population of Age Groups", 
+                                                                  x = "Age Groups", 
+                                                                  y = "Number of People") 
