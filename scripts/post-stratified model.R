@@ -24,6 +24,11 @@ testing_data <- modeling_interest[(training_size+1):dim(modeling_interest)[1],]
 
 model <- glm(vote2020_bin ~ age_groups + educ_level ,na.action="na.exclude" ,data=modeling_interest,family="binomial")
 
+coef_labels <- c("Intercept","age_groups31-45 years old","age_groups46-65 years old","age_groupsAbove 65 years old","educ_levelDoctorate Degree","educ_levelGrade School","educ_levelMaster's or above bachelor's degree")
+coef_model <- coef(model)
+coeficients_table <- rbind(coef_labels,coef_model)
+write(coeficients_table,"outputs/Statistics/modelcoef.csv")
+
 
 training_data <- training_data %>% mutate(Probability=predict(model,training_data,type="response"))
 # Classification based on probability. Those with propability greater then 0.5 will classify as voting for Joe biden 
