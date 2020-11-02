@@ -45,6 +45,8 @@ Outputs contain data that are modified from the input data, the report and suppo
   - running script 01-data_cleaning-post-strat.R and 01-data_cleaning-survey.R will write to this folder 
   
 - paper
+- statistics
+  -this is where the statistics from the model will be located
 
 Scripts contain R scripts that take inputs and outputs and produce outputs. These are:
 
