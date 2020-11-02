@@ -145,7 +145,18 @@ log(\frac{p}{1-p})= 0.828 - 0.711x_1 - 0.831x_2 - 0.800x_3 - 0.512y_1 - 0.290y_2
 \end{equation}
 \
 
-where the x values represent age groups and y values represent education levels.
+where the x values represent age groups and y values represent education levels. $x_i$ is 1 when that sample contain a particular age group category while $y_i$ is 1 when there is a particular level of education category. the value is 0 otherwise.
+
+```{r table2, echo = FALSE}
+# table of xi or yi values so that we know which value is 1 or 0
+tab_values<-as.matrix(rbind(cbind("x1","31-45 years old"),cbind("x2","46-65 years old"),cbind("x3","Above 65 years old"),cbind("y1","Doctorate Degree"),cbind("y2","Grade School"),cbind("y3","Master's or above bachelor's degree")))
+
+kbl(tab_values,caption = 'switch for equation 2',col.names = c("","Categories"))%>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+
+If the age group is 18-30 years old, x1,x2,x3 is all 0. If the level of education is College, y1,y2,y3 is all 0. those are the baseline for the model. 
 
 The software we use to model is by using r's glm function.
 
@@ -156,14 +167,14 @@ After applying the model, we visualise the distribution in Figure \@ref(fig:res1
 ```{r res1,fig.cap = "Voting Patterns according to education levels",echo = FALSE, fig.width=8, fig.height=2}
 prediction_data <- read.csv("../cleaned data/prediction.csv")
 prediction_data %>% 
-ggplot()+ geom_bar(aes(x=Predicted_vote,fill=educ_level))+labs(x = "Predicted Vote", y = "Number of People",fill="Education Levels")
+ggplot()+ geom_bar(aes(x=Predicted_vote,fill=educ_level),colour="black")+labs(x = "Predicted Vote", y = "Number of People",fill="Education Levels")
 
 ```
 
 
 ```{r res2,fig.cap = "Voting Patterns according to age groups",echo = FALSE, fig.width=8, fig.height=2}
 prediction_data %>% 
-  ggplot()+ geom_bar(aes(x=Predicted_vote,fill=age_groups))+labs(x = "Predicted Vote", y = "Number of People",fill="age groups")
+  ggplot()+ geom_bar(aes(x=Predicted_vote,fill=age_groups),colour="black")+labs(x = "Predicted Vote", y = "Number of People",fill="age groups")
 ```
 
 The model predicted that those between the age of 18-30 will vote for Joe Biden.

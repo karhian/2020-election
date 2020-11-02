@@ -9,7 +9,6 @@
 # - Don't forget to gitignore it!
 
 library(tidyverse)
-library()
 survey_data <- read.csv("outputs/cleaned data/survey_cleaned.csv")
 survey_data <-  survey_data %>% mutate(vote2020_bin = case_when(vote_2020 == "Joe Biden" ~ 1,
                                                                 vote_2020 == "Donald Trump" ~ 0))
